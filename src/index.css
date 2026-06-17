@@ -47,13 +47,20 @@ canvas {
   touch-action: none;
 }
 
-/* Shared WORK-gallery card width. Width is driven by viewport WIDTH (54vw,
-   clamped 440–820px) but also capped by viewport HEIGHT (96vh ⇒ ≤60vh tall at
-   16:10) so on shorter 16:9 screens the card shrinks instead of colliding with
-   the top filter pills and the bottom prev/next nav. ProjectsRail.jsx mirrors
-   this exact formula in JS for the live-preview iframe scale. */
+/* WORK gallery layout tokens.
+   The card is centered inside a vertical "safe band" that clears the top filter
+   pills (which can wrap to 2 rows) and the bottom prev/next nav, so the card can
+   never collide with them. Card width is driven by viewport WIDTH (54vw, clamped
+   440–820px) AND capped so its height (16:10) fits the band — on shorter 16:9
+   screens it shrinks instead of overlapping the chrome. ProjectsRail.jsx measures
+   the resulting width to scale the live-preview iframe crisply. */
 :root {
-  --rail-card-w: min(clamp(440px, 54vw, 820px), 96vh);
+  --rail-top: clamp(80px, 11vh, 112px);
+  --rail-bottom: clamp(84px, 12vh, 110px);
+  --rail-card-w: min(
+    clamp(440px, 54vw, 820px),
+    calc((100vh - var(--rail-top) - var(--rail-bottom) - 3.5rem) * 1.6)
+  );
 }
 
 ::selection {
@@ -278,6 +285,125 @@ canvas {
   .rail-nav-btn:active {
     transform: none;
     transition-duration: 90ms;
+  }
+}
+
+/* ===== Category dropdown (WORK gallery filter) =====
+   A single compact glass control + floating popover that replaces the wrapping
+   pill row, so the filter never spans multiple rows or collides with the card
+   on short 16:9 screens. Shares the unified dark-glass recipe + mint accent. */
+.cat-trigger {
+  background: rgba(14, 17, 24, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 24px -10px rgba(0, 0, 0, 0.6);
+  transition:
+    background 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.cat-trigger:hover {
+  background: rgba(30, 35, 46, 0.78);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: translateY(-1px);
+}
+.cat-trigger:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 24px -10px rgba(0, 0, 0, 0.6),
+    0 0 0 2px rgba(154, 240, 224, 0.85);
+}
+.cat-trigger__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 9999px;
+  color: #9af0e0;
+  background: rgba(154, 240, 224, 0.12);
+  border: 1px solid rgba(154, 240, 224, 0.28);
+}
+
+.cat-menu {
+  min-width: clamp(220px, 24vw, 280px);
+  max-width: 86vw;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0.4rem;
+  list-style: none;
+  border-radius: 1.1rem;
+  background: rgba(14, 17, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 60px -18px rgba(0, 0, 0, 0.7);
+  animation: cat-menu-in 180ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@keyframes cat-menu-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+.cat-item {
+  color: rgba(255, 255, 255, 0.82);
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    background 160ms ease-out,
+    color 160ms ease-out,
+    border-color 160ms ease-out;
+}
+.cat-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.cat-item:focus-visible {
+  outline: none;
+  border-color: rgba(154, 240, 224, 0.7);
+}
+.cat-item[data-active] {
+  background: rgba(154, 240, 224, 0.12);
+  border-color: rgba(154, 240, 224, 0.32);
+  color: #dafff6;
+}
+.cat-item__dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #9af0e0;
+  opacity: 0;
+  box-shadow: 0 0 8px rgba(154, 240, 224, 0.85);
+  transition: opacity 160ms ease-out;
+}
+.cat-item[data-active] .cat-item__dot {
+  opacity: 1;
+}
+.cat-item__count {
+  color: rgba(255, 255, 255, 0.5);
+}
+.cat-item[data-active] .cat-item__count {
+  color: rgba(154, 240, 224, 0.9);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-trigger,
+  .cat-trigger:hover {
+    transform: none;
+  }
+  .cat-menu {
+    animation: none;
   }
 }
 

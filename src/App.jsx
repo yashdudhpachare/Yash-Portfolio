@@ -6,6 +6,7 @@ import Preloader from "./components/Preloader.jsx";
 import Overlay from "./components/Overlay.jsx";
 import ParticleCursor from "./components/ParticleCursor.jsx";
 import ProjectsRail from "./components/ProjectsRail.jsx";
+import CategoryDropdown from "./components/CategoryDropdown.jsx";
 import LogoStrip from "./components/LogoStrip.jsx";
 import BackgroundMusic from "./components/BackgroundMusic.jsx";
 import { projectsForCategory } from "./projectsData.js";
@@ -65,7 +66,6 @@ export default function App() {
   const revealRef = useRef(0);
   const projScrollRef = useRef(0);
   const projIntroRef = useRef(0);          // 0..1 automatic fly-in when projects open
-  const tablistRef = useRef(null);         // category pill row (for scroll-into-view on change)
   const snapTimerRef = useRef(null);       // debounce timer for scroll-end snap
   const [currentIdx, setCurrentIdx] = useState(0); // active rail card (drives bottom counter + arrow disabled states)
   const currentIdxRef = useRef(0);                 // live mirror so the key handler always reads the latest card
@@ -182,13 +182,6 @@ export default function App() {
     currentIdxRef.current = 0;
     setCurrentIdx(0); // jump back to the first project of the new category
   };
-
-  // Keep the active category pill visible inside its horizontal scroll region
-  // (matters on narrow viewports where the 7 pills overflow).
-  useEffect(() => {
-    const el = tablistRef.current?.querySelector('[data-active="true"]');
-    el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  }, [activeCat]);
 
   // Step the rail by ±1 card. Shared by the bottom arrow buttons + arrow keys.
   // Translates the page scroll to the exact pixel for that card; Lenis smooths.
@@ -601,26 +594,11 @@ export default function App() {
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
-          <nav
-            ref={tablistRef}
-            aria-label="Filter projects by category"
-            className="pointer-events-auto fixed top-6 left-1/2 z-30 flex max-w-[94vw] -translate-x-1/2 flex-wrap items-center justify-center gap-2.5 px-3 py-2"
-          >
-            {CATEGORIES.map((c) => {
-              const active = c === activeCat;
-              return (
-                <button
-                  key={c}
-                  onClick={() => pickCategory(c)}
-                  aria-pressed={active}
-                  data-active={active || undefined}
-                  className="pill-tab shrink-0 whitespace-nowrap rounded-full px-6 py-3 font-body text-sm font-semibold tracking-[0.005em] focus-visible:outline-none"
-                >
-                  {c}
-                </button>
-              );
-            })}
-          </nav>
+          <CategoryDropdown
+            categories={CATEGORIES}
+            active={activeCat}
+            onSelect={pickCategory}
+          />
 
           {/* Bottom nav: prev / counter / next. Click or use ←/→ keys. */}
           {(() => {
@@ -727,7 +705,7 @@ export default function App() {
             {/* Contact bar — compact horizontal card; details shown as text,
                 LinkedIn opens the profile. */}
             <div className="pointer-events-auto mt-[clamp(0.75rem,2.4vh,2.25rem)] flex w-full max-w-[860px] flex-col items-stretch overflow-hidden rounded-[1.4rem] border border-white/15 bg-white/[0.06] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:flex-row">
-              <div className="flex flex-1 items-center gap-3.5 px-6 py-4">
+              <div className="flex min-w-0 flex-1 items-center gap-3.5 px-6 py-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.07] text-[#9af0e0]">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 6.5 12 13l9-6.5M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" />
@@ -743,7 +721,7 @@ export default function App() {
                 </span>
               </div>
               <div className="h-px w-full bg-white/12 sm:h-auto sm:w-px" />
-              <div className="flex flex-1 items-center gap-3.5 px-6 py-4">
+              <div className="flex min-w-0 flex-1 items-center gap-3.5 px-6 py-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.07] text-[#9af0e0]">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -763,7 +741,7 @@ export default function App() {
                 href="https://www.linkedin.com/in/yashdudhpachare/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-1 items-center gap-3.5 px-6 py-4 transition hover:bg-white/[0.04]"
+                className="group flex min-w-0 flex-1 items-center gap-3.5 px-6 py-4 transition hover:bg-white/[0.04]"
               >
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.07] text-[#9af0e0]">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

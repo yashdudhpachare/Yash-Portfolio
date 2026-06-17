@@ -12,14 +12,6 @@ const DESIGN_H = 900; // 16:10 to match the card frame
 // live sites at once.
 const LIVE_WINDOW = 1;
 
-function cardWidthPx() {
-  // Mirrors the CSS `--rail-card-w` formula:
-  //   min( clamp(440px, 54vw, 820px), 96vh )
-  // The 96vh cap keeps the card from outgrowing shorter 16:9 viewports.
-  if (typeof window === "undefined") return 820;
-  const byWidth = Math.max(440, Math.min(820, window.innerWidth * 0.54));
-  return Math.min(byWidth, window.innerHeight * 0.96);
-}
 
 // Horizontal DOM gallery rendered OVER the WebGL canvas. The row is translated
 // horizontally by the shared scroll progress (projScrollRef) and each card's
@@ -29,18 +21,29 @@ export default function ProjectsRail({ projScrollRef, activeCat, onActiveChange 
   const trackRef = useRef(null);
   const viewRef = useRef(null);
   const cardRefs = useRef([]);
+  const measureRef = useRef(null);
 
   const list = useMemo(() => projectsForCategory(activeCat), [activeCat]);
 
   // Which card is centered (drives which cards mount a live iframe).
   const [active, setActive] = useState(0);
   // Scale factor that shrinks the DESIGN_W iframe down to the card width.
-  const [scale, setScale] = useState(() => cardWidthPx() / DESIGN_W);
+  const [scale, setScale] = useState(0.5);
 
+  // Measure the ACTUAL rendered card width (a hidden probe sized by the same
+  // `--rail-card-w` CSS token) so the live-preview iframe scale always matches,
+  // no matter how the responsive clamp/calc resolves on this viewport.
   useEffect(() => {
-    const onResize = () => setScale(cardWidthPx() / DESIGN_W);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const el = measureRef.current;
+    if (!el) return;
+    const apply = () => {
+      const w = el.clientWidth;
+      if (w > 0) setScale(w / DESIGN_W);
+    };
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   // Reset to the first card whenever the category (list) changes.
@@ -93,8 +96,15 @@ export default function ProjectsRail({ projScrollRef, activeCat, onActiveChange 
   return (
     <div
       ref={viewRef}
-      className="pointer-events-none fixed inset-0 z-20 flex items-center overflow-hidden"
+      className="pointer-events-none fixed inset-x-0 top-[var(--rail-top)] bottom-[var(--rail-bottom)] z-20 flex items-center overflow-hidden"
     >
+      {/* Hidden probe: resolves the live `--rail-card-w` px so we can scale the
+          preview iframe to match the card exactly on any viewport. */}
+      <div
+        ref={measureRef}
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 h-0 w-[var(--rail-card-w)] opacity-0"
+      />
       <div
         ref={trackRef}
         className="flex items-stretch gap-10 will-change-transform"
