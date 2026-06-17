@@ -2,23 +2,25 @@
 // `url` is the LIVE Vercel deployment — used both for the in-card iframe preview
 // and the click-through. `img` is a static poster shown while the iframe loads
 // (and for off-screen cards, to keep the gallery light).
+// `tags` = 3 short keywords describing the project. `year` = when it was done
+// (leave "" to hide it). These show in the gallery card meta.
 export const PROJECTS = [
-  { n: "01", title: "The Connected Ecosystem", cat: "Digital Product", img: "/projects/01.png", url: "https://project-44fib.vercel.app" },
-  { n: "02", title: "WorkCenter 2.0", cat: "Digital Product", img: "/projects/02.png", url: "https://wc-2-beta.vercel.app" },
-  { n: "03", title: "AI Idea Hub", cat: "Digital Product", img: "/projects/03.png", url: "https://ai-idea-hub-delta.vercel.app" },
-  { n: "04", title: "Atelier", cat: "Digital Product", img: "/projects/04.png", url: "https://atelier-room-designer.vercel.app" },
-  { n: "05", title: "Civic Simbaa", cat: "Digital Product", img: "/projects/05.png", url: "https://civic-simba.vercel.app" },
-  { n: "06", title: "SBI 2040", cat: "Digital Product", img: "/projects/06.png", url: "https://sbi-2040.vercel.app" },
-  { n: "07", title: "Dispenser Ops Console", cat: "Digital Product", img: "/projects/07.png", url: "https://salesforce-erp.vercel.app" },
-  { n: "08", title: "SmartScope", cat: "New Product Development", img: "/projects/08.png", url: "https://smartscope-navy.vercel.app" },
-  { n: "09", title: "LaundroTot", cat: "New Product Development", img: "/projects/09.png", url: "https://laundrotot.vercel.app" },
-  { n: "10", title: "Enigma Explorer", cat: "New Product Development", img: "/projects/10.png", url: "https://enigma-three-neon.vercel.app" },
-  { n: "11", title: "VANA", cat: "Physical Product", img: "/projects/11.png", url: "https://m-des-final-project.vercel.app" },
-  { n: "12", title: "Ergo", cat: "Physical Product", img: "/projects/12.png", url: "https://self-eye-drop-dispenser.vercel.app" },
-  { n: "13", title: "Quantitative Market Study", cat: "Quantitative Market Study", img: "/projects/13.png", url: "https://quantitative-market-study.vercel.app" },
-  { n: "14", title: "KR Flower Market", cat: "Research", img: "/projects/14.png", url: "https://kr-flower-market.vercel.app" },
-  { n: "15", title: "Farmly", cat: "Research", img: "/projects/15.png", url: "https://farmly-kappa.vercel.app" },
-  { n: "16", title: "Selected Experiments", cat: "Miscellaneous", img: "/projects/16.png", url: "https://site-lemon-omega-52.vercel.app" },
+  { n: "01", title: "The Connected Ecosystem", cat: "Digital Product", year: "", tags: ["Ecosystem", "Strategy", "UX"], img: "/projects/01.png", url: "https://project-44fib.vercel.app" },
+  { n: "02", title: "WorkCenter 2.0", cat: "Digital Product", year: "", tags: ["Enterprise", "SaaS", "Redesign"], img: "/projects/02.png", url: "https://wc-2-beta.vercel.app" },
+  { n: "03", title: "AI Idea Hub", cat: "Digital Product", year: "", tags: ["AI", "Ideation", "Product"], img: "/projects/03.png", url: "https://ai-idea-hub-delta.vercel.app" },
+  { n: "04", title: "Atelier", cat: "Digital Product", year: "", tags: ["AI", "Interiors", "Automation"], img: "/projects/04.png", url: "https://atelier-room-designer.vercel.app" },
+  { n: "05", title: "Civic Simbaa", cat: "Digital Product", year: "", tags: ["Civic", "Service", "UX"], img: "/projects/05.png", url: "https://civic-simba.vercel.app" },
+  { n: "06", title: "SBI 2040", cat: "Digital Product", year: "", tags: ["Fintech", "Vision", "Concept"], img: "/projects/06.png", url: "https://sbi-2040.vercel.app" },
+  { n: "07", title: "Dispenser Ops Console", cat: "Digital Product", year: "", tags: ["ERP", "Workflow", "B2B"], img: "/projects/07.png", url: "https://salesforce-erp.vercel.app" },
+  { n: "08", title: "SmartScope", cat: "New Product Development", year: "", tags: ["Hardware", "NPD", "UX"], img: "/projects/08.png", url: "https://smartscope-navy.vercel.app" },
+  { n: "09", title: "LaundroTot", cat: "New Product Development", year: "", tags: ["Appliance", "NPD", "UX"], img: "/projects/09.png", url: "https://laundrotot.vercel.app" },
+  { n: "10", title: "Enigma Explorer", cat: "New Product Development", year: "", tags: ["NPD", "Research", "Concept"], img: "/projects/10.png", url: "https://enigma-three-neon.vercel.app" },
+  { n: "11", title: "VANA", cat: "Physical Product", year: "", tags: ["Product", "Sustainability", "Design"], img: "/projects/11.png", url: "https://m-des-final-project.vercel.app" },
+  { n: "12", title: "Ergo", cat: "Physical Product", year: "", tags: ["Healthcare", "Device", "Ergonomics"], img: "/projects/12.png", url: "https://self-eye-drop-dispenser.vercel.app" },
+  { n: "13", title: "Quantitative Market Study", cat: "Quantitative Market Study", year: "", tags: ["Data", "Analytics", "Research"], img: "/projects/13.png", url: "https://quantitative-market-study.vercel.app" },
+  { n: "14", title: "KR Flower Market", cat: "Research", year: "", tags: ["Field Research", "Service", "UX"], img: "/projects/14.png", url: "https://kr-flower-market.vercel.app" },
+  { n: "15", title: "Farmly", cat: "Research", year: "", tags: ["Agritech", "Research", "UX"], img: "/projects/15.png", url: "https://farmly-kappa.vercel.app" },
+  { n: "16", title: "Selected Experiments", cat: "Miscellaneous", year: "", tags: ["Experiments", "Visual", "Craft"], img: "/projects/16.png", url: "https://site-lemon-omega-52.vercel.app" },
 ];
 
 // "Selected Work" = a curated 5 (in this exact order).

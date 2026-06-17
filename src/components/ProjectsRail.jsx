@@ -154,23 +154,34 @@ export default function ProjectsRail({ projScrollRef, activeCat, onActiveChange 
                   <path d="M7 17L17 7M9 7h8v8" />
                 </svg>
               </span>
-              {/* Meta shows ONLY for the centered card, so the visible number
-                  always matches the bottom counter. */}
-              <div className="rail-card__meta">
-                <div className="mt-4 flex items-baseline gap-3">
-                  <span className="font-mono text-xs text-[#5be1c9]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-body text-base font-semibold tracking-tight text-white">
-                    {p.title}
-                  </span>
-                </div>
-                {(!activeCat || activeCat === "Selected Work") && (
-                  <div className="mt-1 font-body text-xs font-medium uppercase tracking-[0.14em] text-white/45">
-                    {p.cat}
-                  </div>
+            {/* Meta shows ONLY for the centered card, so the visible number
+                always matches the bottom counter. */}
+            <div className="rail-card__meta mt-4 flex w-full items-center gap-4">
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-xs text-[#5be1c9]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-body text-base font-semibold tracking-tight text-white">
+                  {p.title}
+                </span>
+                {p.year && (
+                  <span className="font-mono text-xs text-white/60">— {p.year}</span>
                 )}
               </div>
+              {/* 3 keywords describing the project — right-aligned on the same row. */}
+              {p.tags && p.tags.length > 0 && (
+                <div className="ml-auto flex flex-wrap items-center justify-end gap-1.5">
+                  {p.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-[#9af0e0]/40 bg-black/70 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_3px_12px_rgba(0,0,0,0.7)] backdrop-blur-md"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
             </a>
           );
         })}
