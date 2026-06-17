@@ -47,6 +47,15 @@ canvas {
   touch-action: none;
 }
 
+/* Shared WORK-gallery card width. Width is driven by viewport WIDTH (54vw,
+   clamped 440–820px) but also capped by viewport HEIGHT (96vh ⇒ ≤60vh tall at
+   16:10) so on shorter 16:9 screens the card shrinks instead of colliding with
+   the top filter pills and the bottom prev/next nav. ProjectsRail.jsx mirrors
+   this exact formula in JS for the live-preview iframe scale. */
+:root {
+  --rail-card-w: min(clamp(440px, 54vw, 820px), 96vh);
+}
+
 ::selection {
   background: var(--color-fog);
   color: var(--color-void);
@@ -593,8 +602,8 @@ canvas {
 .about-portrait {
   position: relative;
   display: inline-block;
-  width: clamp(96px, 12vw, 140px);
-  height: clamp(96px, 12vw, 140px);
+  width: clamp(76px, min(12vw, 13vh), 140px);
+  height: clamp(76px, min(12vw, 13vh), 140px);
 }
 .about-portrait::before {
   content: "";

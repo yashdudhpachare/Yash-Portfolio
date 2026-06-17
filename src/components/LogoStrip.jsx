@@ -32,7 +32,7 @@ const LOGOS = [
 export default function LogoStrip() {
   const items = [...LOGOS, ...LOGOS];
   return (
-    <div className="logo-marquee pointer-events-none fixed bottom-12 left-0 right-0 z-30">
+    <div className="logo-marquee pointer-events-none fixed bottom-[clamp(0.75rem,3vh,3rem)] left-0 right-0 z-30">
       <div className="logo-marquee__track">
         {items.map((l, i) => (
           <span

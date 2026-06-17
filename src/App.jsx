@@ -684,31 +684,31 @@ export default function App() {
           {/* About content — floats in front of the scene; the glass card glows
               behind the mountain as the backdrop. */}
           <div
-            className="pointer-events-none fixed inset-0 z-30 flex flex-col items-center justify-center px-6 text-center"
+            className="pointer-events-none fixed inset-0 z-30 flex flex-col items-center justify-center px-6 py-[clamp(1rem,4vh,3rem)] text-center"
             style={{ textShadow: "0 2px 28px rgba(0,0,0,0.65)" }}
           >
-            <span className="about-portrait pointer-events-auto mb-5 -mt-[6vh]">
+            <span className="about-portrait pointer-events-auto mb-[clamp(0.5rem,1.5vh,1.25rem)] -mt-[clamp(0.5rem,3vh,2.5rem)]">
               <img src="/yash.png" alt="Yash Dudhpachare" className="about-portrait__img" />
             </span>
             <span className="font-body text-[11px] font-medium uppercase tracking-[0.45em] text-white/55">
               About me
             </span>
-            <h2 className="mt-4 max-w-[28ch] font-serif text-[clamp(2.2rem,5.5vw,4.25rem)] italic leading-[0.98] tracking-tight text-white">
+            <h2 className="mt-[clamp(0.5rem,1.4vh,1rem)] max-w-[28ch] font-serif text-[clamp(1.8rem,min(5.2vw,6vh),4.25rem)] italic leading-[1.0] tracking-tight text-white">
               I design products people genuinely<br />love to use<span className="not-italic text-[#9af0e0]">.</span>
             </h2>
-            <p className="mt-6 max-w-[74ch] font-body text-sm font-light leading-relaxed tracking-wide text-white/80 sm:text-base">
+            <p className="mt-[clamp(0.5rem,2vh,1.5rem)] max-w-[74ch] font-body text-[clamp(0.78rem,1.6vh,1rem)] font-light leading-[1.5] tracking-wide text-white/80">
               I&apos;m Yash — a product designer with an architect&apos;s eye and a
               builder&apos;s hands. After a B.Arch in Mumbai I earned my M.Des at
               IISc Bangalore, and I&apos;ve spent 2+ years turning ambiguous
               problems into clear, shippable products.
             </p>
-            <p className="mt-4 max-w-[74ch] font-body text-sm font-light leading-relaxed tracking-wide text-white/70 sm:text-base">
+            <p className="mt-[clamp(0.4rem,1.2vh,1rem)] max-w-[74ch] font-body text-[clamp(0.78rem,1.6vh,1rem)] font-light leading-[1.5] tracking-wide text-white/70">
               At Trimble I design enterprise SaaS alongside PMs and engineers,
               turning messy requirements into clear, usable flows. Off the clock
               I build AI products end-to-end — wiring LLMs, vision and automation
               (n8n, Cursor, Claude) into experiences people actually want to use.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
+            <div className="mt-[clamp(0.6rem,2vh,2rem)] flex flex-wrap items-center justify-center gap-2.5">
               {[
                 "2+ yrs in product",
                 "M.Des · IISc Bangalore",
@@ -726,7 +726,7 @@ export default function App() {
 
             {/* Contact bar — compact horizontal card; details shown as text,
                 LinkedIn opens the profile. */}
-            <div className="pointer-events-auto mt-9 flex w-full max-w-[860px] flex-col items-stretch overflow-hidden rounded-[1.4rem] border border-white/15 bg-white/[0.06] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:flex-row">
+            <div className="pointer-events-auto mt-[clamp(0.75rem,2.4vh,2.25rem)] flex w-full max-w-[860px] flex-col items-stretch overflow-hidden rounded-[1.4rem] border border-white/15 bg-white/[0.06] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:flex-row">
               <div className="flex flex-1 items-center gap-3.5 px-6 py-4">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[0.07] text-[#9af0e0]">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

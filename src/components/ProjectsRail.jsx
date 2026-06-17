@@ -13,9 +13,12 @@ const DESIGN_H = 900; // 16:10 to match the card frame
 const LIVE_WINDOW = 1;
 
 function cardWidthPx() {
-  // Mirrors the CSS clamp(440px, 54vw, 820px) used on the card below.
+  // Mirrors the CSS `--rail-card-w` formula:
+  //   min( clamp(440px, 54vw, 820px), 96vh )
+  // The 96vh cap keeps the card from outgrowing shorter 16:9 viewports.
   if (typeof window === "undefined") return 820;
-  return Math.max(440, Math.min(820, window.innerWidth * 0.54));
+  const byWidth = Math.max(440, Math.min(820, window.innerWidth * 0.54));
+  return Math.min(byWidth, window.innerHeight * 0.96);
 }
 
 // Horizontal DOM gallery rendered OVER the WebGL canvas. The row is translated
@@ -96,7 +99,7 @@ export default function ProjectsRail({ projScrollRef, activeCat, onActiveChange 
         ref={trackRef}
         className="flex items-stretch gap-10 will-change-transform"
         style={{
-          paddingInline: "calc((100vw - clamp(440px, 54vw, 820px)) / 2)",
+          paddingInline: "calc((100vw - var(--rail-card-w)) / 2)",
         }}
       >
         {list.map((p, i) => {
@@ -111,7 +114,7 @@ export default function ProjectsRail({ projScrollRef, activeCat, onActiveChange 
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${p.title} — ${p.cat} case study (opens live site)`}
-              className="rail-card group pointer-events-auto relative block w-[clamp(440px,54vw,820px)] shrink-0 focus-visible:outline-none"
+              className="rail-card group pointer-events-auto relative block w-[var(--rail-card-w)] shrink-0 focus-visible:outline-none"
               style={{ "--focus": 0 }}
             >
               <div className="rail-card__frame relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/12 bg-[#0b0e14] shadow-[0_30px_80px_rgba(0,0,0,0.55)] transition duration-300 group-hover:border-white/30 group-hover:shadow-[0_40px_100px_rgba(0,0,0,0.7)] group-focus-visible:border-white/40">
