@@ -1,0 +1,33 @@
+---
+description: UI/UX design rules for the immersive portfolio. Component, type, color, motion, and a11y conventions.
+alwaysApply: true
+---
+
+# UI Design Rules
+
+> **Action for the user:** Paste your Cursor user rules below this line, then save. The agent will read this file on the next message and apply the rules to any UI work.
+
+<!-- ============================================== -->
+<!-- PASTE YOUR RULES BELOW (replace this comment). -->
+<!-- ============================================== -->
+
+(awaiting rules)
+
+<!-- ============================================== -->
+<!-- Optional sections you can fill in:             -->
+<!-- ============================================== -->
+
+## Component primitives
+<!-- e.g. "All buttons must use the .pill-tab or .hero-cta recipe; no ad-hoc Tailwind shadow stacks." -->
+
+## Color tokens
+<!-- e.g. "Accent: #9af0e0. Dark accent: #0a463c. Glass surface: rgba(255,255,255,0.06–0.18)." -->
+
+## Typography
+<!-- e.g. "Body: Barlow 14px / 600. Numerals: JetBrains Mono with tabular-nums. Tracking: -0.005 to +0.02em." -->
+
+## Motion
+<!-- e.g. "Easing: cubic-bezier(0.32, 0.72, 0, 1). Press: 90ms. State change: 220–280ms." -->
+
+## Accessibility
+<!-- e.g. "Min hit target: 44x44. Focus ring: 2px #9af0e0 with 3px black gap. AAA contrast where possible." -->

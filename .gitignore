@@ -1,0 +1,16 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+.vercel
+# stray unused model source files at the project root (the app only uses the
+# copies in /public). Anchored with a leading slash so /public/models/* stay.
+/snowy_mountain.glb
+/great_mountain.glb
+/spring_mountain_scene.glb
+/spring-mountain-scene.zip
+/spring_mountain_scene.zip
+/Spring_Mountain_scene.usdz
+/great-mountain/
